@@ -1,0 +1,5 @@
+@charset "utf-8";
+/* CSS Document */
+.container{background-color:#666666;}
+#indexlogoimg{background-image:url(../../images/fresh_not_frozen.png); width:386px; height:113px;}
+#indexvideoimg{background-image:url(../../images/video-screen.png); width:469px; height:293px;}
