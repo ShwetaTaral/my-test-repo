@@ -1,5 +1,5 @@
 // JavaScript Document
-var countLinktext=[4,3,2,3];  //maintain the count of each link's text in array 
+var countLinktext=[4,3,2,4];  //maintain the count of each link's text in array 
 var linkTextArr=[0,0,0,0];	//tracking the each link text. Use for comparing with countLinktext
 var linkNode=1;  				//track the count of link.
 var linkNodeText=0;				//track the count of text in each link. 
@@ -28,7 +28,7 @@ function setupElements()
     	changePageNumber();
     });
 }
-
+//comparing the values of linkTextArr and countLinktext for each link
 function nextbuttonclick()
 {
 	
@@ -53,10 +53,12 @@ function nextbuttonclick()
     }
 }
 
+
 function gotoNextLink(){
 	
 }
 
+//to display link text
 function displayText()
 {
 	
@@ -82,7 +84,7 @@ function hidealltext()
 {
 	for(var i=1;i<=countLinktext.length;i++)
 	{
-		for(var j=1;j<=countLinktext.length;j++)
+		for(var j=1;j<=countLinktext[i-1];j++)
 		{
 			$("#link"+i+"text"+j).hide();			//hide all the link text
 		}
