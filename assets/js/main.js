@@ -7,13 +7,12 @@ $(document).ready(function()
 {
 	hidealltext();				//hide all the link text.
    	gotonext();					//fucntion hanldes the next button click event.
-   //	changePageNumber();
+   	changePageNumber();
 });
 
 
 //to display the page number
 function changePageNumber(){
-	//$("#indexnavtrack").text(linkNode+"/"+countLinktext.length);
 	$("#indexnavtrack").text(linkNodeText+"/"+countLinktext[linkNode-1]);
 }
 
@@ -66,7 +65,6 @@ function displayText()
 				
 	}
 	console.log(linkNodeText+"/"+countLinktext[linkNode-1]);
-	changePageNumber();
 	linkTextArr[linkNode-1]=linkNodeText;			//updating value of the linkTextArr
 	$("#link"+linkNode+"text"+linkNodeText).show();			//display the respective text
 }
