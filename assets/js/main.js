@@ -4,8 +4,9 @@ var currentLink=0;  				//track the count of link.
 var currentLinkText=0;				//track the count of text in each link. 
 $(document).ready(function() 
 {
-	selectLink();
+	
    	setupElements();	//to setup page elements and display properties.   	  	
+	selectLink();
 });
 
 //to setup page elements and display properties
@@ -70,6 +71,7 @@ function prevButtonclick()
 
 //to display the page number
 function changePageNumber(){
+	console.log(countLinktext,currentLink);
 	$("#indexnavtrack").text((currentLinkText+1)+"/"+countLinktext[currentLink]);
 }
 
@@ -94,13 +96,15 @@ function moveToNextLink()
 
 
 function selectLink(){
-	$("a").on("mousedown",function()
+		$("a").on("mousedown",function()
 		{
 		 var linktext=$(this).attr("class");
 		 $(".navbar-nav li a").removeClass("linkhover");
 		 $(this).addClass("linkhover");
 		 var linkNo=linktext.substring(8,9);
-		 countLinktext=1;
+		 countLinktext=0;
 		 currentLink=linkNo-1;
+		 displayText();
+		 changePageNumber();
 		});
 }
