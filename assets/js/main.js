@@ -2,10 +2,11 @@
 var textsInLinks=[];  //maintain the count of each link's text in array 
 var currentLink=0;  				//track the count of link.
 var currentLinkText=0;				//track the count of text in each link. 
+
 $(document).ready(function() 
 {	
    	setupElements();	//to setup page elements and display properties.   	  	
-	selectLink();
+	
 });
 
 //to setup page elements and display properties
@@ -14,7 +15,7 @@ function setupElements()
 	getLinkAndTextCount();
 	displayText();
    	changePageNumber(); 	
-   	heighlightMenu();
+   	hightlightMenu();
    	
 	$(".btnNext").on("click",function()		
 	{
@@ -28,12 +29,13 @@ function setupElements()
     	changePageNumber();
     });
     
-    $(".navbar-nav li").on("click",function(){
+    $(".navbar-nav li").on("click",function(){  //Random click on the any linkNode will start traversing from that node
 		currentLink=$(this).index();
+		console.log(currentLink);
 	 	currentLinkText=0;
 	 	displayText();
 	   	changePageNumber(); 	
-	   	heighlightMenu();
+	   	hightlightMenu();
 	});
 
 }
@@ -56,7 +58,7 @@ function nextButtonclick()
 		if(currentLink>=textsInLinks.length)
 			currentLink=0;
 		currentLinkText=0;		
-		heighlightMenu(); //moving the hover highlight to the corresponding link
+		hightlightMenu(); //moving the hover highlight to the corresponding link
 	}
 	displayText(); //display the corresponding text
 }
@@ -72,7 +74,7 @@ function prevButtonclick()
 		if(currentLink<0)
 			currentLink=textsInLinks.length-1;
 		currentLinkText=textsInLinks[currentLink]-1;		
-		heighlightMenu(); //moving the hover lighlight to the corresponding link
+		hightlightMenu(); //moving the hover lighlight to the corresponding link
 	}
 	displayText(); //display the corresponding text
 }
@@ -91,12 +93,13 @@ function displayText()
 	currentTextParagraph.removeClass("hidden"); //display the respective text	
 }
 
+//hide the all link texts
 function hidealltext()
 {
 	$(".linktext p").addClass("hidden");	
 }
-
-function heighlightMenu()
+//hightlight the link node according to navigation.
+function hightlightMenu()
 {
 	$(".navbar-nav li").removeClass("Active");	//remove the selected state of all the link
 	$(".navbar-nav li").eq(currentLink).addClass("Active");
