@@ -7,13 +7,21 @@ $(document).ready(function()
 {
 	hidealltext();				//hide all the link text.
    	gotonext();					//fucntion hanldes the next button click event.
+   	changePageNumber();
 });
+
+
+//to display the page number
+function changePageNumber(){
+	$("#indexnavtrack").text(linkNode+"/"+countLinktext.length);
+}
 
 function gotonext()
 {
 	 $(".btnNext").on("mousedown",function()		
 	{
-		nextbuttonclick();				//function for handling the btnNext click
+		nextbuttonclick();				//function for handling the btnNext click		
+    	changePageNumber();
     });
 }
 
