@@ -30,12 +30,13 @@ function nextbuttonclick()
 		else							//execute after each link text complete and move to next link text
 		{ 
 				console.log("inside else")
-					linkNode++;							
+					linkNode++;	
+					$("#linkNode"+linkNode).css("border","1px solid red");		
 					linkNodeText=0;
 					displayText();
 			
 		}
-			
+		$("#linkNode"+linkNode).css("border","1px solid red");	
     }
 }
 

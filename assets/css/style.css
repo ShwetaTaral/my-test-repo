@@ -3,6 +3,11 @@
 .container{background-color:#666666;}
 .linktext{font-family":"Arial Black", Gadget, sans-serif; font-size:18px;color:#CCC;margin-top:20px;}
 .paddingbottom{padding-bottom:50px;}
-
+.linkhover{
+text-decoration: none;
+background-color: #EEE;
+border-radius: 5px;
+border:1px soild red;
+}
 
 
