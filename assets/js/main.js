@@ -1,19 +1,20 @@
 // JavaScript Document
-var countLinktext=[4,3,2,3,1];  //maintain the count of each link's text in array 
-var linkTextArr=[0,0,0,0,0];	//tracking the each link text. Use for comparing with countLinktext
+var countLinktext=[4,3,2,3];  //maintain the count of each link's text in array 
+var linkTextArr=[0,0,0,0];	//tracking the each link text. Use for comparing with countLinktext
 var linkNode=1;  				//track the count of link.
 var linkNodeText=0;				//track the count of text in each link. 
 $(document).ready(function() 
 {
 	hidealltext();				//hide all the link text.
    	gotonext();					//fucntion hanldes the next button click event.
-   	changePageNumber();
+   //	changePageNumber();
 });
 
 
 //to display the page number
 function changePageNumber(){
-	$("#indexnavtrack").text(linkNode+"/"+countLinktext.length);
+	//$("#indexnavtrack").text(linkNode+"/"+countLinktext.length);
+	$("#indexnavtrack").text(linkNodeText+"/"+countLinktext[linkNode-1]);
 }
 
 function gotonext()
@@ -39,12 +40,12 @@ function nextbuttonclick()
 		{ 
 				console.log("inside else")
 					linkNode++;	
-					$("#linkNode"+linkNode).css("border","1px solid red");		
+					removeHoverClass();		//remove the selected state of all the link
+					$(".linkNode"+linkNode).addClass("linkhover");		//add the selected state for the current link
 					linkNodeText=0;
 					displayText();
 			
-		}
-		$("#linkNode"+linkNode).css("border","1px solid red");	
+		}	
     }
 }
 
@@ -64,9 +65,10 @@ function displayText()
 				}
 				
 	}
+	console.log(linkNodeText+"/"+countLinktext[linkNode-1]);
+	changePageNumber();
 	linkTextArr[linkNode-1]=linkNodeText;			//updating value of the linkTextArr
 	$("#link"+linkNode+"text"+linkNodeText).show();			//display the respective text
-	console.log("linkNode*"+ linkNode +"linkNodeText*"+ linkNodeText);
 }
 
 
@@ -80,4 +82,10 @@ function hidealltext()
 		}
 	}
 }
-
+function removeHoverClass()
+{
+	for(var i=1;i<=countLinktext.length;i++)
+	{
+		$(".linkNode"+i).removeClass("linkhover");	//remove the selected state of all the link
+	}
+}
