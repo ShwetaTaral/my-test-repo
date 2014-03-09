@@ -1,5 +1,5 @@
 // JavaScript Document
-var countLinktext=[];  //maintain the count of each link's text in array 
+var textsInLinks=[];  //maintain the count of each link's text in array 
 var currentLink=0;  				//track the count of link.
 var currentLinkText=0;				//track the count of text in each link. 
 $(document).ready(function() 
@@ -13,8 +13,8 @@ function setupElements()
 {
 	getLinkAndTextCount();
 	displayText();
-   	changePageNumber(); 
-	
+   	changePageNumber(); 	
+   	heighlightMenu();
    	
 	$(".btnNext").on("click",function()		
 	{
@@ -27,12 +27,21 @@ function setupElements()
 		prevButtonclick();				//function for handling the btnNext click		
     	changePageNumber();
     });
+    
+    $(".navbar-nav li").on("click",function(){
+		currentLink=$(this).index();
+	 	currentLinkText=0;
+	 	displayText();
+	   	changePageNumber(); 	
+	   	heighlightMenu();
+	});
+
 }
 
 function getLinkAndTextCount(){
 	$.each($("#contentPlaceHolder .linktext"),function(){
 		var textParagraphCount=$(this).find("p").length;
-		countLinktext.push(textParagraphCount);
+		textsInLinks.push(textParagraphCount);
 	})
 }
 
@@ -41,13 +50,13 @@ function nextButtonclick()
 {
 	currentLinkText++;
 	//if more than available, reset.
-	if(currentLinkText>=countLinktext[currentLink]){
+	if(currentLinkText>=textsInLinks[currentLink]){
 		currentLink++;
 		//if more than available, reset.
-		if(currentLink>=countLinktext.length)
+		if(currentLink>=textsInLinks.length)
 			currentLink=0;
 		currentLinkText=0;		
-		moveToNextLink(); //moving the hover highlight to the corresponding link
+		heighlightMenu(); //moving the hover highlight to the corresponding link
 	}
 	displayText(); //display the corresponding text
 }
@@ -61,24 +70,25 @@ function prevButtonclick()
 		currentLink--;
 		//if more than available, reset.
 		if(currentLink<0)
-			currentLink=countLinktext.length-1;
-		currentLinkText=countLinktext[currentLink]-1;		
-		moveToNextLink(); //moving the hover lighlight to the corresponding link
+			currentLink=textsInLinks.length-1;
+		currentLinkText=textsInLinks[currentLink]-1;		
+		heighlightMenu(); //moving the hover lighlight to the corresponding link
 	}
 	displayText(); //display the corresponding text
 }
 
 //to display the page number
 function changePageNumber(){
-	$("#indexnavtrack").text((currentLinkText+1)+"/"+countLinktext[currentLink]);
+	$("#indexnavtrack").text((currentLinkText+1)+"/"+textsInLinks[currentLink]);
 }
 
 //to display link text
 function displayText()
-{
-	
+{	
 	hidealltext(); //hide all the initially displayed text
-	$("#link"+(currentLink+1)+" p").eq(currentLinkText).removeClass("hidden"); //display the respective text	
+	var currentTextDiv=$(".linktext").eq(currentLink);
+	var currentTextParagraph=currentTextDiv.find("p").eq(currentLinkText);
+	currentTextParagraph.removeClass("hidden"); //display the respective text	
 }
 
 function hidealltext()
@@ -86,21 +96,9 @@ function hidealltext()
 	$(".linktext p").addClass("hidden");	
 }
 
-function moveToNextLink()
+function heighlightMenu()
 {
-	$(".navbar-nav li a").removeClass("linkhover");	//remove the selected state of all the link
-	$(".navbar-nav li").eq(currentLink).find("a").addClass("linkhover");
+	$(".navbar-nav li").removeClass("Active");	//remove the selected state of all the link
+	$(".navbar-nav li").eq(currentLink).addClass("Active");
 }
 
-
-function selectLink(){
-	$("a").on("mousedown",function()
-		{
-		 var linktext=$(this).attr("class");
-		 $(".navbar-nav li a").removeClass("linkhover");
-		 $(this).addClass("linkhover");
-		 var linkNo=linktext.substring(8,9);
-		 countLinktext=1;
-		 currentLink=linkNo-1;
-		});
-}

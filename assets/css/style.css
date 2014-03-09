@@ -4,9 +4,10 @@
 .linktext{font-family":"Arial Black", Gadget, sans-serif; font-size:18px;color:#CCC;margin-top:20px;}
 .indextext{font-family":"Arial Black", Gadget, sans-serif; font-size:20px;color:#CCC;margin-top:22px;font-weight:bold;}
 .paddingbottom{padding-bottom:50px;}
-.linkhover{
+ul .Active a{
 text-decoration: none;
 background-color: #EEE;
+color:#666666;
 border-radius: 5px;
 border:1px soild red;
 }
