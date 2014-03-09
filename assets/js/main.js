@@ -1,99 +1,90 @@
 // JavaScript Document
-var countLinktext=[4,3,2,4];  //maintain the count of each link's text in array 
-var linkTextArr=[0,0,0,0];	//tracking the each link text. Use for comparing with countLinktext
-var linkNode=1;  				//track the count of link.
+var countLinktext=[];  //maintain the count of each link's text in array 
+var linkNode=0;  				//track the count of link.
 var linkNodeText=0;				//track the count of text in each link. 
 $(document).ready(function() 
 {
-	hidealltext();		//hide all the link text.
-   	setupElements();	//to setup page elements and display properties.
-   	  	
+   	setupElements();	//to setup page elements and display properties.   	  	
 });
-
-
-//to display the page number
-function changePageNumber(){
-	$("#indexnavtrack").text(linkNodeText+"/"+countLinktext[linkNode-1]);
-}
 
 //to setup page elements and display properties
 function setupElements()
 {
+	getLinkAndTextCount();
 	displayText();
    	changePageNumber(); 
    	
-	 $(".btnNext").on("mousedown",function()		
+	$(".btnNext").on("click",function()		
 	{
-		nextbuttonclick();				//function for handling the btnNext click		
+		nextButtonclick();				//function for handling the btnNext click		
+    	changePageNumber();
+    });
+    
+    $(".btnPrev").on("click",function()		
+	{
+		prevButtonclick();				//function for handling the btnNext click		
     	changePageNumber();
     });
 }
-//comparing the values of linkTextArr and countLinktext for each link
-function nextbuttonclick()
-{
-	
-	if(linkNode<=countLinktext.length)			
-	{
-		console.log("inside if")
-		if(linkTextArr[linkNode-1]!=countLinktext[linkNode-1])
-		{
-			displayText();				//Upadate the count value and display respective text.
-		}
-		else							//execute after each link text complete and move to next link text
-		{ 
-				console.log("inside else")
-					linkNode++;
-					
-					removeHoverClass();		//remove the selected state of all the link
-					$(".linkNode"+linkNode).addClass("linkhover");		//add the selected state for the current link
-					linkNodeText=0;
-					displayText();
-			
-		}	
-    }
+
+function getLinkAndTextCount(){
+	$.each($("#contentPlaceHolder .linktext"),function(){
+		var textParagraphCount=$(this).find("p").length;
+		countLinktext.push(textParagraphCount);
+	})
 }
 
+//handler to go to next link, or the next text of current link
+function nextButtonclick()
+{
+	linkNodeText++;
+	//if more than available, reset.
+	if(linkNodeText>=countLinktext[linkNode]){
+		linkNode++;
+		//if more than available, reset.
+		if(linkNode>=countLinktext.length)
+			linkNode=0;
+		linkNodeText=0;		
+		moveToNextLink(); //moving the hover lighlight to the corresponding link
+	}
+	displayText(); //display the corresponding text
+}
 
-function gotoNextLink(){
-	
+//handler to go to next link, or the next text of current link
+function prevButtonclick()
+{
+	linkNodeText--;
+	//if more than available, reset.
+	if(linkNodeText<0){
+		linkNode--;
+		//if more than available, reset.
+		if(linkNode<0)
+			linkNode=countLinktext.length-1;
+		linkNodeText=countLinktext[linkNode]-1;		
+		moveToNextLink(); //moving the hover lighlight to the corresponding link
+	}
+	displayText(); //display the corresponding text
+}
+
+//to display the page number
+function changePageNumber(){
+	$("#indexnavtrack").text((linkNodeText+1)+"/"+countLinktext[linkNode]);
 }
 
 //to display link text
 function displayText()
 {
-	
-	hidealltext();			//hide all the initially displayed text
-	linkNodeText++;	
-	if(linkNode>countLinktext.length)     //if the value exceeds than the lenght of countLinktext
-	{
-			linkNode=1;								//reset the linkNode and linkNodeText
-			linkNodeText=1;
-				for(i=0;i<linkTextArr.length;i++)
-				{
-					linkTextArr[i]-=countLinktext[i];		//reset the linkTextArr
-				}
-				
-	}
-	console.log(linkNodeText+"/"+countLinktext[linkNode-1]);
-	linkTextArr[linkNode-1]=linkNodeText;			//updating value of the linkTextArr
-	$("#link"+linkNode+"text"+linkNodeText).show();			//display the respective text
+	hidealltext(); //hide all the initially displayed text
+	$("#link"+(linkNode+1)+" p").eq(linkNodeText).removeClass("hidden"); //display the respective text	
 }
-
 
 function hidealltext()
 {
-	for(var i=1;i<=countLinktext.length;i++)
-	{
-		for(var j=1;j<=countLinktext[i-1];j++)
-		{
-			$("#link"+i+"text"+j).hide();			//hide all the link text
-		}
-	}
+	$(".linktext p").addClass("hidden");	
 }
-function removeHoverClass()
+
+function moveToNextLink()
 {
-	for(var i=1;i<=countLinktext.length;i++)
-	{
-		$(".linkNode"+i).removeClass("linkhover");	//remove the selected state of all the link
-	}
+	$(".navbar-nav li a").removeClass("linkhover");	//remove the selected state of all the link
+	$(".navbar-nav li").eq(linkNode).find("a").addClass("linkhover")
 }
