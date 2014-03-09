@@ -3,9 +3,9 @@ var textsInLinks=[];  //maintain the count of each link's text in array
 var currentLink=0;  				//track the count of link.
 var currentLinkText=0;				//track the count of text in each link. 
 $(document).ready(function() 
-{
-	selectLink();
+{	
    	setupElements();	//to setup page elements and display properties.   	  	
+	selectLink();
 });
 
 //to setup page elements and display properties
