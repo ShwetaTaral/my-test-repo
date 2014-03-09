@@ -2,6 +2,7 @@
 /* CSS Document */
 .container{background-color:#666666;}
 .linktext{font-family":"Arial Black", Gadget, sans-serif; font-size:18px;color:#CCC;margin-top:20px;}
+.indextext{font-family":"Arial Black", Gadget, sans-serif; font-size:20px;color:#CCC;margin-top:22px;font-weight:bold;}
 .paddingbottom{padding-bottom:50px;}
 .linkhover{
 text-decoration: none;

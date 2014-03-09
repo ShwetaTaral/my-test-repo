@@ -1,9 +1,10 @@
 // JavaScript Document
 var countLinktext=[];  //maintain the count of each link's text in array 
-var linkNode=0;  				//track the count of link.
-var linkNodeText=0;				//track the count of text in each link. 
+var currentLink=0;  				//track the count of link.
+var currentLinkText=0;				//track the count of text in each link. 
 $(document).ready(function() 
 {
+	selectLink();
    	setupElements();	//to setup page elements and display properties.   	  	
 });
 
@@ -13,6 +14,7 @@ function setupElements()
 	getLinkAndTextCount();
 	displayText();
    	changePageNumber(); 
+	
    	
 	$(".btnNext").on("click",function()		
 	{
@@ -37,30 +39,30 @@ function getLinkAndTextCount(){
 //handler to go to next link, or the next text of current link
 function nextButtonclick()
 {
-	linkNodeText++;
+	currentLinkText++;
 	//if more than available, reset.
-	if(linkNodeText>=countLinktext[linkNode]){
-		linkNode++;
+	if(currentLinkText>=countLinktext[currentLink]){
+		currentLink++;
 		//if more than available, reset.
-		if(linkNode>=countLinktext.length)
-			linkNode=0;
-		linkNodeText=0;		
-		moveToNextLink(); //moving the hover lighlight to the corresponding link
+		if(currentLink>=countLinktext.length)
+			currentLink=0;
+		currentLinkText=0;		
+		moveToNextLink(); //moving the hover highlight to the corresponding link
 	}
 	displayText(); //display the corresponding text
 }
 
-//handler to go to next link, or the next text of current link
+//handler to go to prev link, or the next text of current link
 function prevButtonclick()
 {
-	linkNodeText--;
+	currentLinkText--;
 	//if more than available, reset.
-	if(linkNodeText<0){
-		linkNode--;
+	if(currentLinkText<0){
+		currentLink--;
 		//if more than available, reset.
-		if(linkNode<0)
-			linkNode=countLinktext.length-1;
-		linkNodeText=countLinktext[linkNode]-1;		
+		if(currentLink<0)
+			currentLink=countLinktext.length-1;
+		currentLinkText=countLinktext[currentLink]-1;		
 		moveToNextLink(); //moving the hover lighlight to the corresponding link
 	}
 	displayText(); //display the corresponding text
@@ -68,14 +70,15 @@ function prevButtonclick()
 
 //to display the page number
 function changePageNumber(){
-	$("#indexnavtrack").text((linkNodeText+1)+"/"+countLinktext[linkNode]);
+	$("#indexnavtrack").text((currentLinkText+1)+"/"+countLinktext[currentLink]);
 }
 
 //to display link text
 function displayText()
 {
+	
 	hidealltext(); //hide all the initially displayed text
-	$("#link"+(linkNode+1)+" p").eq(linkNodeText).removeClass("hidden"); //display the respective text	
+	$("#link"+(currentLink+1)+" p").eq(currentLinkText).removeClass("hidden"); //display the respective text	
 }
 
 function hidealltext()
@@ -86,5 +89,18 @@ function hidealltext()
 function moveToNextLink()
 {
 	$(".navbar-nav li a").removeClass("linkhover");	//remove the selected state of all the link
-	$(".navbar-nav li").eq(linkNode).find("a").addClass("linkhover")
+	$(".navbar-nav li").eq(currentLink).find("a").addClass("linkhover");
+}
+
+
+function selectLink(){
+	$("a").on("mousedown",function()
+		{
+		 var linktext=$(this).attr("class");
+		 $(".navbar-nav li a").removeClass("linkhover");
+		 $(this).addClass("linkhover");
+		 var linkNo=linktext.substring(8,9);
+		 countLinktext=1;
+		 currentLink=linkNo-1;
+		});
 }
