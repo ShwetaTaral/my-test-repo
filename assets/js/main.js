@@ -67,7 +67,16 @@ function test()
 
 function hidealltext()
 {
-	$("#link1text1,#link1text2,#link1text3,#link1text4,#link2text1,#link2text2,#link2text3,#link2text4,#link3text1,#link3text2,#link3text3,#link3text4,#link4text1,#link4text2,#link4text3,#link4text4").hide();
+	for(var i=1;i<=noofeachlinktext.length;i++)
+	{
+		for(var j=1;j<=noofeachlinktext.length;j++)
+		{
+			console.log("link"+i+"text"+j);
+			$("#link"+i+"text"+j).hide();
+		}
+	}
 	
+/*$("#link1text1,#link1text2,#link1text3,#link1text4,#link2text1,#link2text2,#link2text3,#link2text4,#link3text1,#link3text2,#link3text3,#link3text4,#link4text1,#link4text2,#link4text3,#link4text4").hide();
+	*/
 }
 
