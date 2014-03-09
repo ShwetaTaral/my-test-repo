@@ -8,60 +8,53 @@ $(document).ready(function()
 	hidealltext();
     $(".gotoNext").on("mousedown",function()
 	{
-		
+		nextbuttonclick();
+    });
+});
+
+function nextbuttonclick()
+{
+	
 	if(count1<=noofeachlinktext.length)
 	{
 		console.log("inside if")
-		if(trackeachtext[count1-1]!=noofeachlinktext[count1-1]){
+		if(trackeachtext[count1-1]!=noofeachlinktext[count1-1])
+		{
 			test();
 		}
-		else{
-			if(trackeachtext!=noofeachlinktext)
-			{
+		else
+		{ 
 				console.log("inside else")
 					count1++;
 					count2=0;
 				test();
-			}
 			
 		}
-	}
-	else
+			
+    }
+}
+
+
+function test()
+{
+	
+	hidealltext();
+	count2++;
+	
+	if(count1>noofeachlinktext.length)
 	{
-		count1=1;count2=0;
+		console.log("count1++"+count1);
+			count1=1;
+			count2=0;
 				for(i=0;i<trackeachtext.length;i++)
 				{
 					trackeachtext[i]-=noofeachlinktext[i];
 				}
+				
 	}
-		console.log("trackeachtext"+trackeachtext);
-		/*for(var i=0;i<arr1.length;i++)
-		{	
-			for(var j=0;j<=i;j++)
-			{
-				if(arr2[j]<=arr1[j])
-				{
-					arr2[0]=count;
-					console.log("arr"+arr2);
-					hidealltext();
-					$("#link"+a+"text"+count).show();
-				}
-			}
-			
-		}
-		count++;
-	});
-	console.log("arr"+arr2);*/
-})
-});
-function test()
-{
-			hidealltext();
-			count2++;
-			trackeachtext[count1-1]=count2;
-			$("#link"+count1+"text"+count2).show();
-			
-			
+	trackeachtext[count1-1]=count2;
+	$("#link"+count1+"text"+count2).show();	
+	
 }
 
 
@@ -71,7 +64,6 @@ function hidealltext()
 	{
 		for(var j=1;j<=noofeachlinktext.length;j++)
 		{
-			console.log("link"+i+"text"+j);
 			$("#link"+i+"text"+j).hide();
 		}
 	}
