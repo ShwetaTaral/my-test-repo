@@ -5,9 +5,9 @@ var linkNode=1;  				//track the count of link.
 var linkNodeText=0;				//track the count of text in each link. 
 $(document).ready(function() 
 {
-	hidealltext();				//hide all the link text.
-   	gotonext();					//fucntion hanldes the next button click event.
-   	changePageNumber();
+	hidealltext();		//hide all the link text.
+   	setupElements();	//to setup page elements and display properties.
+   	  	
 });
 
 
@@ -16,8 +16,12 @@ function changePageNumber(){
 	$("#indexnavtrack").text(linkNodeText+"/"+countLinktext[linkNode-1]);
 }
 
-function gotonext()
+//to setup page elements and display properties
+function setupElements()
 {
+	displayText();
+   	changePageNumber(); 
+   	
 	 $(".btnNext").on("mousedown",function()		
 	{
 		nextbuttonclick();				//function for handling the btnNext click		
@@ -38,7 +42,8 @@ function nextbuttonclick()
 		else							//execute after each link text complete and move to next link text
 		{ 
 				console.log("inside else")
-					linkNode++;	
+					linkNode++;
+					
 					removeHoverClass();		//remove the selected state of all the link
 					$(".linkNode"+linkNode).addClass("linkhover");		//add the selected state for the current link
 					linkNodeText=0;
@@ -48,6 +53,9 @@ function nextbuttonclick()
     }
 }
 
+function gotoNextLink(){
+	
+}
 
 function displayText()
 {
